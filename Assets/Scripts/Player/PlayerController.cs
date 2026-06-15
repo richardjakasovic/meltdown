@@ -15,8 +15,6 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log($"OnNetworkSpawn — IsOwner: {IsOwner}, IsHost: {IsHost}, OwnerClientId: {OwnerClientId}, LocalClientId: {NetworkManager.Singleton.LocalClientId}");
-
         // Get the audio listener on this player
         AudioListener audioListener = GetComponent<AudioListener>();
 
@@ -50,6 +48,7 @@ public class PlayerController : NetworkBehaviour
         if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) h = -1f;
         if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) v = 1f;
         if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) v = -1f;
+
 
         Vector3 move = new Vector3(h, 0, v) * moveSpeed * Time.deltaTime;
         characterController.Move(move);
