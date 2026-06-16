@@ -8,6 +8,10 @@ public class PlayerController : NetworkBehaviour
     private CharacterController characterController;
     [SerializeField] private GameObject playerCamera;
 
+    [SerializeField] private float mouseSensitivity = 2f;
+
+    private float pitch = 0f;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -15,25 +19,23 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // Get the audio listener on this player
-        AudioListener audioListener = GetComponent<AudioListener>();
+        Debug.Log($"Spawn: Local={NetworkManager.Singleton.LocalClientId}, Owner={OwnerClientId}");
 
-        if (IsOwner)
-        {
-            playerCamera.SetActive(true);
-            if (audioListener != null) audioListener.enabled = true;
-        }
-        else
-        {
-            characterController.enabled = false;
-            if (audioListener != null) audioListener.enabled = false;
-        }
+        characterController.enabled = IsOwner;
+
+        if (playerCamera != null)
+            playerCamera.SetActive(IsOwner);
+
+        var audioListener = GetComponent<AudioListener>();
+        if (audioListener != null)
+            audioListener.enabled = IsOwner;
     }
 
     void Update()
     {
         if (!IsOwner) return;
         HandleMovement();
+        HandleCameraMovement();
     }
 
     void HandleMovement()
@@ -49,8 +51,34 @@ public class PlayerController : NetworkBehaviour
         if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) v = 1f;
         if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) v = -1f;
 
+        // Get camera directions
+        Vector3 forward = playerCamera.transform.forward;
+        Vector3 right = playerCamera.transform.right;
 
-        Vector3 move = new Vector3(h, 0, v) * moveSpeed * Time.deltaTime;
-        characterController.Move(move);
+        // Flatten so we don't move up/down when looking
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        // Convert input into camera-relative movement
+        Vector3 moveDirection = forward * v + right * h;
+
+        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+    }
+
+    void HandleCameraMovement()
+    {
+        var mouse = UnityEngine.InputSystem.Mouse.current;
+        if (mouse == null) return;
+
+        Vector2 delta = mouse.delta.ReadValue() * mouseSensitivity;
+
+        transform.Rotate(Vector3.up * delta.x);
+
+        pitch -= delta.y;
+        pitch = Mathf.Clamp(pitch, -80f, 80f);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 }

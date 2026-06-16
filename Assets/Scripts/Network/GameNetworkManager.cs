@@ -52,8 +52,6 @@ public class GameNetworkManager : MonoBehaviour
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayers);
         joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
-        Debug.Log("Join code: " + joinCode);
-
         var utpTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         utpTransport.SetRelayServerData(
             allocation.RelayServer.IpV4,
