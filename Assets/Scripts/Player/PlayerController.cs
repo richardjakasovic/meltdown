@@ -46,10 +46,10 @@ public class PlayerController : NetworkBehaviour
         float h = 0f;
         float v = 0f;
 
-        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) h = 1f;
-        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) h = -1f;
-        if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) v = 1f;
-        if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) v = -1f;
+        if (keyboard.dKey.isPressed) h = 1f;
+        if (keyboard.aKey.isPressed) h = -1f;
+        if (keyboard.wKey.isPressed) v = 1f;
+        if (keyboard.sKey.isPressed) v = -1f;
 
         // Get camera directions
         Vector3 forward = playerCamera.transform.forward;

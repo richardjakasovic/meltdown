@@ -371,7 +371,9 @@ GameObject:
   - component: {fileID: 1309513987}
   - component: {fileID: 1309513986}
   - component: {fileID: 1309513985}
-  m_Layer: 0
+  - component: {fileID: 1309513990}
+  - component: {fileID: 1309513989}
+  m_Layer: 6
   m_Name: Breaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,6 +473,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1309513989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309513984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7d85fd4850059459f8b2c9d13bf6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakerPanel
+  breakerPanelPrefab: {fileID: 503484272604358502, guid: 60e2f35716a15ea45898e9f90ee9bcf3, type: 3}
+  promptPanelPrefab: {fileID: 8284948409947663926, guid: 9ab6641038c0302499072d975c0890ba, type: 3}
+--- !u!114 &1309513990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309513984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f8ef9f45e187c40a8b9d1406645bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
