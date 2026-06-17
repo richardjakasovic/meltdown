@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2283522401280727041}
   - component: {fileID: 2093023138565933023}
   - component: {fileID: -8679161603436062990}
+  - component: {fileID: -548750989848641019}
+  - component: {fileID: -9123249643998001671}
   m_Layer: 5
   m_Name: BreakerInteractablePanel
   m_TagString: Untagged
@@ -88,3 +90,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f8ef9f45e187c40a8b9d1406645bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableController
+--- !u!114 &-548750989848641019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503484272604358502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 50
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &-9123249643998001671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503484272604358502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb96c9eff5bce3438ac37ed6cf38f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakerPanelButtonSpawner
+  breakerButtonPrefab: {fileID: 1612843606283286226, guid: 6b28f7135b2c8034db22d186f5ee6761, type: 3}
+  breakerList: 

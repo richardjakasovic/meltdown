@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseInteractable()
     {
-        if (currentInteractablePanel != null) Destroy(currentInteractablePanel);
+        if (currentInteractablePanel != null) currentInteractablePanel.SetActive(false);
         currentInteractablePanel = null;
         Cursor.lockState = CursorLockMode.Locked;
     }
