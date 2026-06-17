@@ -13,6 +13,7 @@ public class PlayerInteractor : NetworkBehaviour
     private IInteractable current;
     private RaycastHit lastHit;
     private bool isHitting;
+    public bool isInteracting;
 
     void Update()
     {
@@ -29,7 +30,7 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (isHitting)
         {
-            var keyboard = UnityEngine.InputSystem.Keyboard.current;
+            var keyboard = Keyboard.current;
             IInteractable hitInteractable = lastHit.collider.GetComponent<IInteractable>();
 
             if (hitInteractable != current)
@@ -42,11 +43,18 @@ public class PlayerInteractor : NetworkBehaviour
                     UIManager.Instance.HidePrompt();
             }
 
-            if (current != null && keyboard.eKey.isPressed)
-                current.Interact();
+            if (current != null && keyboard.eKey.wasPressedThisFrame)
+
+                current.Interact(this);
         }
         else if (current != null)
         {
+            if (isInteracting)
+            {
+                UIManager.Instance.CloseInteractable();
+                isInteracting = false;
+            }
+
             current = null;
             UIManager.Instance.HidePrompt();
         }

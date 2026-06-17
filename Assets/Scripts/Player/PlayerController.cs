@@ -6,6 +6,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     private CharacterController characterController;
+    private PlayerInteractor interactor;
     [SerializeField] private GameObject playerCamera;
 
     [SerializeField] private float mouseSensitivity = 2f;
@@ -15,6 +16,7 @@ public class PlayerController : NetworkBehaviour
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        interactor = GetComponent<PlayerInteractor>();
     }
 
     public override void OnNetworkSpawn()
@@ -69,16 +71,19 @@ public class PlayerController : NetworkBehaviour
 
     void HandleCameraMovement()
     {
-        var mouse = UnityEngine.InputSystem.Mouse.current;
-        if (mouse == null) return;
+        if (!interactor.isInteracting)
+        {
+            var mouse = UnityEngine.InputSystem.Mouse.current;
+            if (mouse == null) return;
 
-        Vector2 delta = mouse.delta.ReadValue() * mouseSensitivity;
+            Vector2 delta = mouse.delta.ReadValue() * mouseSensitivity;
 
-        transform.Rotate(Vector3.up * delta.x);
+            transform.Rotate(Vector3.up * delta.x);
 
-        pitch -= delta.y;
-        pitch = Mathf.Clamp(pitch, -80f, 80f);
+            pitch -= delta.y;
+            pitch = Mathf.Clamp(pitch, -80f, 80f);
 
-        playerCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            playerCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        }
     }
 }

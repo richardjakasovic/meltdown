@@ -487,6 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreakerPanel
   breakerPanelPrefab: {fileID: 503484272604358502, guid: 60e2f35716a15ea45898e9f90ee9bcf3, type: 3}
   promptPanelPrefab: {fileID: 8284948409947663926, guid: 9ab6641038c0302499072d975c0890ba, type: 3}
+  promptText: Press "E"
 --- !u!114 &1309513990
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,6 @@ public class Bootstrap : MonoBehaviour
 
     void Start()
     {
-        SceneManager.LoadScene(gameSceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Additive);
     }
 }

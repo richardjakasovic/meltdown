@@ -26,8 +26,6 @@ public class UIManager : MonoBehaviour
 
     public void ShowPrompt(GameObject panelPrefab, string text)
     {
-        Debug.Log($"ShowPrompt called. panelPrefab={panelPrefab}, text={text}, uiRoot={uiRoot}");
-
         if (currentPromptPanel != null)
             Destroy(currentPromptPanel);
 
@@ -41,8 +39,6 @@ public class UIManager : MonoBehaviour
         currentPromptPanel = Instantiate(panelPrefab, uiRoot);
         currentPromptPanel.SetActive(true);
         currentPromptPanel.GetComponent<PromptPanelUI>()?.SetText(text);
-
-        Debug.Log($"Spawned: {currentPromptPanel.name}, active={currentPromptPanel.activeInHierarchy}, parent={currentPromptPanel.transform.parent?.name}");
     }
 
     public void HidePrompt()
@@ -58,7 +54,6 @@ public class UIManager : MonoBehaviour
         currentInteractablePanel.GetComponent<InteractableController>().Setup(onSuccess, onFail);
         currentInteractablePanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
     }
 
     public void CloseInteractable()
@@ -66,6 +61,5 @@ public class UIManager : MonoBehaviour
         if (currentInteractablePanel != null) Destroy(currentInteractablePanel);
         currentInteractablePanel = null;
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
     }
 }
