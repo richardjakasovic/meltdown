@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 876266749452654662}
   - component: {fileID: 1828395581831407537}
   - component: {fileID: 8063153757582915725}
+  - component: {fileID: 2312539880331343582}
   m_Layer: 5
-  m_Name: BreakerButton
+  m_Name: Breaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,6 +122,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2312539880331343582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612843606283286226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8aaff1a38e5b6f4985235a34587440e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breaker
+  IsOn: 0
+  LinkedBreakers: []
 --- !u!1 &2705972690242287932
 GameObject:
   m_ObjectHideFlags: 0
