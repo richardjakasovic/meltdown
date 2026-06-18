@@ -20,6 +20,8 @@ public class BreakerPanelButtonSpawner : MonoBehaviour
         {
             GameObject newBreaker = Instantiate(breakerPrefab, transform);
             var breakerScript = newBreaker.GetComponent<Breaker>();
+            var breakerText = newBreaker.GetComponentInChildren<TextMeshProUGUI>();
+            breakerText.text = chars[i];
             breakers.Add(breakerScript);
 
             GameObject statusTextObject = Instantiate(breakerStatusText, transform);
