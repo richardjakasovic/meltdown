@@ -1,5 +1,4 @@
-using System.Globalization;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,12 +12,57 @@ public class PlayerInteractor : NetworkBehaviour
     private IInteractable current;
     private RaycastHit lastHit;
     private bool isHitting;
+
     public bool isInteracting;
+
+    private GameObject currentTargetObject;
 
     void Update()
     {
         if (!IsOwner) return;
 
+        var keyboard = Keyboard.current;
+
+        if (isInteracting)
+        {
+            HandleInteractionMode(keyboard);
+            return;
+        }
+
+        HandleLookMode(keyboard);
+    }
+
+    private void HandleInteractionMode(Keyboard keyboard)
+    {
+        // ESC closes UI
+        if (keyboard.escapeKey.wasPressedThisFrame)
+        {
+            UIManager.Instance.CloseInteractable();
+            isInteracting = false;
+            currentTargetObject = null;
+            return;
+        }
+
+        if (currentTargetObject != null)
+        {
+            float distance = Vector3.Distance(
+                head.position,
+                currentTargetObject.transform.position
+            );
+
+            if (distance > interactRange)
+            {
+                Debug.Log("OUT OF RANGE → closing UI");
+
+                UIManager.Instance.CloseInteractable();
+                isInteracting = false;
+                currentTargetObject = null;
+            }
+        }
+    }
+
+    private void HandleLookMode(Keyboard keyboard)
+    {
         isHitting = Physics.SphereCast(
             head.position,
             sphereRadius,
@@ -30,31 +74,37 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (isHitting)
         {
-            var keyboard = Keyboard.current;
-            IInteractable hitInteractable = lastHit.collider.GetComponent<IInteractable>();
+            GameObject interactableGameObject = lastHit.collider.gameObject;
+            IInteractable hitInteractable =
+                interactableGameObject.GetComponent<IInteractable>();
 
+            // Update current hover target (prompt system)
             if (hitInteractable != current)
             {
                 current = hitInteractable;
 
                 if (current != null)
-                    UIManager.Instance.ShowPrompt(current.GetPromptPanel(), current.GetPromptText());
+                    UIManager.Instance.ShowPrompt(
+                        current.GetPromptPanel(),
+                        current.GetPromptText()
+                    );
                 else
                     UIManager.Instance.HidePrompt();
             }
 
+            // Interact
             if (current != null && keyboard.eKey.wasPressedThisFrame)
-
-                current.Interact(this);
-        }
-        else if (current != null)
-        {
-            if (isInteracting)
             {
-                UIManager.Instance.CloseInteractable();
-                isInteracting = false;
-            }
+                current.Interact(this, hitInteractable, interactableGameObject);
 
+                currentTargetObject = lastHit.collider.transform.root.gameObject;
+                isInteracting = true;
+
+                UIManager.Instance.HidePrompt();
+            }
+        }
+        else
+        {
             current = null;
             UIManager.Instance.HidePrompt();
         }
@@ -69,11 +119,9 @@ public class PlayerInteractor : NetworkBehaviour
 
         Gizmos.color = isHitting ? Color.green : Color.red;
 
-        // Sphere at start and end of the cast
         Gizmos.DrawWireSphere(start, sphereRadius);
         Gizmos.DrawWireSphere(end, sphereRadius);
 
-        // Lines connecting them, offset top/bottom/left/right, to suggest the swept capsule shape
         Vector3 up = Vector3.up * sphereRadius;
         Vector3 right = head.right * sphereRadius;
 
@@ -82,7 +130,6 @@ public class PlayerInteractor : NetworkBehaviour
         Gizmos.DrawLine(start + right, end + right);
         Gizmos.DrawLine(start - right, end - right);
 
-        // If it hit something, mark the exact hit point
         if (isHitting)
         {
             Gizmos.color = Color.yellow;

@@ -1,14 +1,11 @@
-using System;
-using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public GameObject promptPanel;
-    public TMP_Text promptText;
 
     public Transform uiRoot;
+
     private GameObject currentInteractablePanel;
     private GameObject currentPromptPanel;
 
@@ -24,20 +21,12 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void ShowPrompt(GameObject panelPrefab, string text)
+    public void ShowPrompt(GameObject prefab, string text)
     {
         if (currentPromptPanel != null)
             Destroy(currentPromptPanel);
 
-        if (panelPrefab == null)
-        {
-            currentPromptPanel = null;
-            Debug.Log("panelPrefab was null, aborting");
-            return;
-        }
-
-        currentPromptPanel = Instantiate(panelPrefab, uiRoot);
-        currentPromptPanel.SetActive(true);
+        currentPromptPanel = Instantiate(prefab, uiRoot);
         currentPromptPanel.GetComponent<PromptPanelUI>()?.SetText(text);
     }
 
@@ -45,21 +34,24 @@ public class UIManager : MonoBehaviour
     {
         if (currentPromptPanel != null)
             Destroy(currentPromptPanel);
+
         currentPromptPanel = null;
     }
 
-    public void OpenInteractable(GameObject panelPrefab, Action onSuccess, Action onFail = null)
+    public void OpenInteractable(GameObject prefab)
     {
-        currentInteractablePanel = Instantiate(panelPrefab, uiRoot);
-        currentInteractablePanel.GetComponent<InteractableController>().Setup(onSuccess, onFail);
+        if (currentInteractablePanel == null)
+            currentInteractablePanel = Instantiate(prefab, uiRoot);
+
         currentInteractablePanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void CloseInteractable()
     {
-        if (currentInteractablePanel != null) currentInteractablePanel.SetActive(false);
-        currentInteractablePanel = null;
+        if (currentInteractablePanel != null)
+            currentInteractablePanel.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 }
