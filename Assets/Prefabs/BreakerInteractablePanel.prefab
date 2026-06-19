@@ -104,8 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreakerPanelButtonSpawner
   breakerPrefab: {fileID: 1612843606283286226, guid: 6b28f7135b2c8034db22d186f5ee6761, type: 3}
   breakerStatusText: {fileID: 7839914995667693665, guid: 462bafeb45d3c164b9596b316513d202, type: 3}
-  breakerList: 
-  difficulty: 4
+  difficulty: 6
+  breakers: []
 --- !u!114 &7720844332210463707
 MonoBehaviour:
   m_ObjectHideFlags: 0
