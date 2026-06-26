@@ -3504,7 +3504,7 @@ GameObject:
   - component: {fileID: 1542442397}
   - component: {fileID: 1542442396}
   - component: {fileID: 1542442395}
-  - component: {fileID: 1542442394}
+  - component: {fileID: 1542442398}
   m_Layer: 6
   m_Name: FuelValve
   m_TagString: Untagged
@@ -3521,27 +3521,12 @@ Transform:
   m_GameObject: {fileID: 1542442392}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.12, y: -0.17200005, z: -1.35498}
+  m_LocalPosition: {x: -1.1199999, y: -0.17200005, z: -1.35498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1297766755}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
---- !u!114 &1542442394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542442392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10493677638b5143bf25cd4f2d73dbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FuelValveInteractable
-  promptText: Press "E"
-  promptPanelPrefab: {fileID: 8284948409947663926, guid: 9ab6641038c0302499072d975c0890ba, type: 3}
-  rotationSpeed: 0.2
 --- !u!136 &1542442395
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3622,6 +3607,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542442392}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1542442398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542442392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10493677638b5143bf25cd4f2d73dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FuelValveInteractable
+  promptText: Press "E"
+  promptPanelPrefab: {fileID: 8284948409947663926, guid: 9ab6641038c0302499072d975c0890ba, type: 3}
+  rotationSpeed: 0.2
 --- !u!1 &1558061741
 GameObject:
   m_ObjectHideFlags: 0

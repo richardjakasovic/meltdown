@@ -13,7 +13,7 @@ public class FuelValveInteractable : MonoBehaviour, IInteractable
                          IInteractable hitInteractable,
                          GameObject fuelValvePrefab)
     {
-        OnStartTurn();
+        //OnStartTurn();
         isBeingTurned = true;
     }
 
@@ -31,20 +31,12 @@ public class FuelValveInteractable : MonoBehaviour, IInteractable
     {
         if (isBeingTurned)
         {
-            Vector2 currentMouse = Mouse.current.position.ReadValue();
+            var keyboard = Keyboard.current;
 
-            // Get angle of current and last mouse position relative to screen center
-            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-
-            float angleNow = Mathf.Atan2(currentMouse.y - screenCenter.y,
-                                           currentMouse.x - screenCenter.x) * Mathf.Rad2Deg;
-            float angleLast = Mathf.Atan2(lastMouseAngle.y - screenCenter.y,
-                                           lastMouseAngle.x - screenCenter.x) * Mathf.Rad2Deg;
-
-            float delta = Mathf.DeltaAngle(angleLast, angleNow);
-            transform.Rotate(0, delta * rotationSpeed, 0);
-
-            lastMouseAngle = currentMouse;
+            if (keyboard.eKey.wasPressedThisFrame)
+            {
+                transform.Rotate(0, 45, 0);
+            }
         }
     }
 }
