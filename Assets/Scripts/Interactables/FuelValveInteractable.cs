@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class FuelValveInteractable : MonoBehaviour, IInteractable
 {
@@ -7,7 +8,9 @@ public class FuelValveInteractable : MonoBehaviour, IInteractable
     public GameObject promptPanelPrefab;
     public float rotationSpeed = 0.2f;
     private bool isBeingTurned;
-    private Vector2 lastMouseAngle;
+    [SerializeField] private float anglePerStep = 45f;
+    private int step = 0;
+    private const int MaxSteps = 3;
 
     public void Interact(PlayerInteractor playerInteractor,
                          IInteractable hitInteractable,
@@ -17,11 +20,6 @@ public class FuelValveInteractable : MonoBehaviour, IInteractable
         isBeingTurned = true;
     }
 
-    public void OnStartTurn()
-    {
-        lastMouseAngle = Mouse.current.position.ReadValue();
-    }
-
     public GameObject GetPromptPanel() => promptPanelPrefab;
 
     public string GetPromptText() => promptText;
@@ -29,14 +27,20 @@ public class FuelValveInteractable : MonoBehaviour, IInteractable
 
     public void Update()
     {
-        if (isBeingTurned)
-        {
-            var keyboard = Keyboard.current;
+        if (!isBeingTurned)
+            return;
 
-            if (keyboard.eKey.wasPressedThisFrame)
-            {
-                transform.Rotate(0, 45, 0);
-            }
+        if (Keyboard.current.eKey.wasPressedThisFrame && step < MaxSteps)
+        {
+            step++;
         }
+
+        if (Keyboard.current.qKey.wasPressedThisFrame && step > 0)
+        {
+            step--;
+        }
+
+        transform.localRotation =
+            Quaternion.Euler(step * anglePerStep, 0f, 0f);
     }
 }
